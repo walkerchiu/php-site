@@ -1,0 +1,63 @@
+{
+    "name": "walkerchiu/php-site",
+    "type": "library",
+    "authors": [
+        {
+            "name":  "Walker Chiu",
+            "email": "chenjen.chiou@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.3",
+        "walkerchiu/php-account": "^1.0",
+        "walkerchiu/php-currency": "^1.0",
+        "walkerchiu/php-morph-address": "^1.0",
+        "walkerchiu/php-morph-category": "^1.0",
+        "walkerchiu/php-morph-comment": "^1.0",
+        "walkerchiu/php-morph-image": "^1.0",
+        "walkerchiu/php-role": "^1.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^5.0"
+    },
+    "suggest": {
+        "walkerchiu/php-api": "^1.0",
+        "walkerchiu/php-coupon": "^1.0",
+        "walkerchiu/php-mall-cart": "^1.0",
+        "walkerchiu/php-mall-order": "^1.0",
+        "walkerchiu/php-mall-shelf": "^1.0",
+        "walkerchiu/php-mall-tablerate": "^1.0",
+        "walkerchiu/php-mall-wishlist": "^1.0",
+        "walkerchiu/php-morph-board": "^1.0",
+        "walkerchiu/php-morph-link": "^1.0",
+        "walkerchiu/php-newsletter": "^1.0",
+        "walkerchiu/php-payment": "^1.0",
+        "walkerchiu/php-point": "^1.0",
+        "walkerchiu/php-shipment": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WalkerChiu\\Site\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "WalkerChiu\\Site\\SiteServiceProvider"
+            ],
+            "aliases": {
+                "Site":   "WalkerChiu\\Site\\Models\\Entities\\Site",
+                "Email":  "WalkerChiu\\Site\\Models\\Entities\\Email",
+                "Layout": "WalkerChiu\\Site\\Models\\Entities\\Layout"
+            }
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}
