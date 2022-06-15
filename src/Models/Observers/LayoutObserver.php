@@ -109,10 +109,6 @@ class LayoutObserver
      */
     public function deleted($entity)
     {
-        if (!config('wk-site.soft_delete')) {
-            $entity->forceDelete();
-        }
-
         if ($entity->isForceDeleting()) {
             $entity->langs()->withTrashed()
                             ->forceDelete();
@@ -126,13 +122,19 @@ class LayoutObserver
                 config('wk-site.onoff.morph-comment')
                 && !empty(config('wk-core.class.morph-comment.comment'))
             ) {
-                $entity->comments()->withTrashed()->forceDelete();
+                $records = $entity->comments()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.morph-image')
                 && !empty(config('wk-core.class.morph-image.image'))
             ) {
-                $entity->images()->withTrashed()->forceDelete();
+                $records = $entity->images()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.morph-tag')
@@ -141,6 +143,10 @@ class LayoutObserver
             ) {
                 $entity->tags()->detach();
             }
+        }
+
+        if (!config('wk-site.soft_delete')) {
+            $entity->forceDelete();
         }
     }
 

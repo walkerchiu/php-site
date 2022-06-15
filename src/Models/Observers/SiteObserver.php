@@ -140,10 +140,6 @@ class SiteObserver
      */
     public function deleted($entity)
     {
-        if (!config('wk-site.soft_delete')) {
-            $entity->forceDelete();
-        }
-
         if ($entity->isForceDeleting()) {
             $entity->langs()->withTrashed()
                             ->forceDelete();
@@ -158,18 +154,24 @@ class SiteObserver
                     config('wk-site.onoff.morph-comment')
                     && !empty(config('wk-core.class.morph-comment.comment'))
                 ) {
-                    $layout->comments()->withTrashed()->forceDelete();
+                    $records = $layout->comments()->withTrashed()->get();
+                    foreach ($records as $recoed) {
+                        $recoed->forceDelete();
+                    }
                 }
                 if (
                     config('wk-site.onoff.morph-image')
                     && !empty(config('wk-core.class.morph-image.image'))
                 ) {
-                    $layout->images()->withTrashed()->forceDelete();
+                    $records = $layout->images()->withTrashed()->get();
+                    foreach ($records as $recoed) {
+                        $recoed->forceDelete();
+                    }
                 }
                 if (
                     config('wk-site.onoff.morph-tag')
                     && !empty(config('wk-core.class.morph-tag.tag'))
-                    && is_iterable($entity->tags())
+                    && is_iterable($layout->tags())
                 ) {
                     $layout->tags()->detach();
                 }
@@ -179,37 +181,55 @@ class SiteObserver
                 config('wk-site.onoff.coupons')
                 && !empty(config('wk-core.class.coupon.coupon'))
             ) {
-                $entity->coupons()->withTrashed()->delete();
+                $records = $entity->coupons()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.currency')
                 && !empty(config('wk-core.class.currency.currency'))
             ) {
-                $entity->currencies()->withTrashed()->delete();
+                $records = $entity->currencies()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.firewall')
                 && !empty(config('wk-core.class.firewall.setting'))
             ) {
-                $entity->firewalls()->withTrashed()->delete();
+                $records = $entity->firewalls()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.mall-stock')
                 && !empty(config('wk-core.class.mall-stock.stock'))
             ) {
-                $entity->stocks()->withTrashed()->delete();
+                $records = $entity->stocks()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.morph-address')
                 && !empty(config('wk-core.class.morph-address.address'))
             ) {
-                $entity->addresses()->withTrashed()->forceDelete();
+                $records = $entity->addresses()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.morph-board')
                 && !empty(config('wk-core.class.morph-board.board'))
             ) {
-                $entity->boards()->withTrashed()->forceDelete();
+                $records = $entity->boards()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.morph-category')
@@ -221,19 +241,28 @@ class SiteObserver
                 config('wk-site.onoff.morph-comment')
                 && !empty(config('wk-core.class.morph-comment.comment'))
             ) {
-                $entity->comments()->withTrashed()->forceDelete();
+                $records = $entity->comments()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.morph-image')
                 && !empty(config('wk-core.class.morph-image.image'))
             ) {
-                $entity->images()->withTrashed()->forceDelete();
+                $records = $entity->images()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.morph-registration')
                 && !empty(config('wk-core.class.morph-registration.registration'))
             ) {
-                $entity->registrations()->withTrashed()->forceDelete();
+                $records = $entity->registrations()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.morph-tag')
@@ -246,38 +275,60 @@ class SiteObserver
                 config('wk-site.onoff.morph-link')
                 && !empty(config('wk-core.class.morph-link.link'))
             ) {
-                $entity->links()->withTrashed()->forceDelete();
+                $records = $entity->links()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.newsletter')
                 && !empty(config('wk-core.class.newsletter.article'))
             ) {
-                $entity->newsletters()->withTrashed()->forceDelete();
+                $records = $entity->newsletters()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.payment')
                 && !empty(config('wk-core.class.payment.payment'))
             ) {
-                $entity->payments()->withTrashed()->forceDelete();
+                $records = $entity->payments()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.point')
                 && !empty(config('wk-core.class.point.setting'))
             ) {
-                $entity->points()->withTrashed()->forceDelete();
+                $records = $entity->points()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.role')
                 && !empty(config('wk-core.class.role.role'))
             ) {
-                $entity->roles()->withTrashed()->forceDelete();
+                $records = $entity->roles()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
             if (
                 config('wk-site.onoff.shipment')
                 && !empty(config('wk-core.class.shipment.shipment'))
             ) {
-                $entity->shipments()->withTrashed()->forceDelete();
+                $records = $entity->shipments()->withTrashed()->get();
+                foreach ($records as $recoed) {
+                    $recoed->forceDelete();
+                }
             }
+        }
+
+        if (!config('wk-site.soft_delete')) {
+            $entity->forceDelete();
         }
     }
 

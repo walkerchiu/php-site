@@ -110,13 +110,13 @@ class EmailObserver
      */
     public function deleted($entity)
     {
-        if (!config('wk-site.soft_delete')) {
-            $entity->forceDelete();
-        }
-
         if ($entity->isForceDeleting()) {
             $entity->langs()->withTrashed()
                             ->forceDelete();
+        }
+
+        if (!config('wk-site.soft_delete')) {
+            $entity->forceDelete();
         }
     }
 
